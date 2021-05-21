@@ -1,17 +1,17 @@
+import 'react-native-gesture-handler';
 import React from 'react'
-import Home from './pages/Home'
-import { Dimensions } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { NavigationContainer } from '@react-navigation/native';
+import MyDrawer from './navigation/Drawer';
 
-import { createAppContainer } from 'react-navigation'
-import { createDrawerNavigation } from 'react-navigation-drawer'
-import { SignUp , LogIn , Cities } from './screens/screen'
-
-const DrawerNavigator = createDrawerNavigation({
-  SignUp,
-  LogIn,
-  Cities
-})
+const App = () => {
+  return(
+    <NavigationContainer>
+      <MyDrawer />
+    </NavigationContainer>
+  )
+}
 
 
-export default createAppContainer(DrawerNavigator)
+
+
+export default App

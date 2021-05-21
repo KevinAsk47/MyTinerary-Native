@@ -2,11 +2,11 @@ import { setStatusBarHidden, StatusBar } from 'expo-status-bar';
 import React from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const Cities = () => {
+const Itineraries = () => {
     return (
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-            <Text style={styles.text}>hola soy cities</Text>
+            <Text style={styles.text}>hola soy Itineraries</Text>
         </ScrollView>
         <StatusBar style="auto" hidden={true} />
       </SafeAreaView>
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Cities
+export default Itineraries

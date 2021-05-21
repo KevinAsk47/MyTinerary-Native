@@ -25,7 +25,7 @@ const Carousel = () => {
         {
           items.map(item => {
             return (
-              <ImageBackground source={{uri: item.image}} key={item.id} style={styles.page} key="1">
+              <ImageBackground source={{uri: item.image}} key={item.id} style={styles.page} >
                 <Text style={styles.title} >{item.title}</Text>
                 {
                   item.id === 1 && <Text style={styles.titleTwo}>Swipe ➡️</Text>
