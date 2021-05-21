@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Text , StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import Cities from '../pages/Cities';
 import Home from '../pages/Home';
 import Itineraries from '../pages/Itineraries';
@@ -26,7 +26,7 @@ export const MyHome = (props) => {
     )
 }
 
-export const MyCities = () => {
+export const MyCities = (props) => {
     const redirectHome = () => {
         props.navigation.openDrawer()
     }
@@ -41,7 +41,7 @@ export const MyCities = () => {
     )
 }
 
-export const MyItineraries = () => {
+export const MyItineraries = (props) => {
     const redirectHome = () => {
         props.navigation.openDrawer()
     }
@@ -56,7 +56,7 @@ export const MyItineraries = () => {
     )
 }
 
-export const LogInPage = () => {
+export const LogInPage = (props) => {
     const redirectHome = () => {
         props.navigation.openDrawer()
     }
@@ -71,7 +71,7 @@ export const LogInPage = () => {
     )
 }
 
-export const SignUpPage = () => {
+export const SignUpPage = (props) => {
     const redirectHome = () => {
         props.navigation.openDrawer()
     }
@@ -86,7 +86,7 @@ export const SignUpPage = () => {
 }
 
 const styles = StyleSheet.create({
-    IconHamburger:{
+    IconHamburger: {
         marginRight: 12
     }
 });
