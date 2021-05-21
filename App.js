@@ -1,30 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native';
-import Home from './pages/Home';
+import React from 'react'
+import Home from './pages/Home'
+import { Dimensions } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 
-const App = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <Home />
-      </ScrollView>
-      <StatusBar style="auto" hidden={true} />
-    </SafeAreaView>
-  );
-}
+import { createAppContainer } from 'react-navigation'
+import { createDrawerNavigation } from 'react-navigation-drawer'
+import { SignUp , LogIn , Cities } from './screens/screen'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    backgroundColor: "blue",
-    width: "100%",
-    height: "100%"
-  },
-  text: {
-    fontSize: 42,
-  },
-});
+const DrawerNavigator = createDrawerNavigation({
+  SignUp,
+  LogIn,
+  Cities
+})
 
-export default App;
+
+export default createAppContainer(DrawerNavigator)

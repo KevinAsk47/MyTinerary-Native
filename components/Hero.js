@@ -19,7 +19,7 @@ const Hero = () => {
 
 const styles = StyleSheet.create({
     video: {
-        height: "100%",
+        height: 600,
         width: "100%"
     },
 });

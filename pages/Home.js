@@ -1,7 +1,7 @@
 import { setStatusBarHidden, StatusBar } from 'expo-status-bar';
 import React from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import MyCarousel from '../components/Carousel';
+import Carousel from '../components/Carousel';
 import Hero from '../components/Hero';
 
 const Home = () => {
@@ -9,6 +9,7 @@ const Home = () => {
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <Hero />
+          <Carousel />
         </ScrollView>
         <StatusBar style="auto" hidden={true} />
       </SafeAreaView>
