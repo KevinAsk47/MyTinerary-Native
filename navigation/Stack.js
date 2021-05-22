@@ -7,6 +7,7 @@ import Itineraries from '../pages/Itineraries';
 import LogIn from '../pages/LogIn';
 import SignUp from '../pages/SignUp';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator()
 
@@ -18,7 +19,7 @@ export const MyHome = (props) => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Home} options={{
-                title: "🏠",
+                title: "Home",
                 headerRight: () => <SimpleLineIcons style={styles.IconHamburger} onPress={redirectHome} name="menu" size={24} color="black" />
 
             }} />
@@ -33,7 +34,8 @@ export const MyCities = (props) => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Cities" component={Cities} options={{
-                title: "🏠",
+                title: <MaterialCommunityIcons name="home-export-outline"
+                    onPress={() => { props.navigation.navigate('Home') }} size={35} color="black" />,
                 headerRight: () => <SimpleLineIcons style={styles.IconHamburger} onPress={redirectHome} name="menu" size={24} color="black" />
 
             }} />
@@ -48,7 +50,8 @@ export const MyItineraries = (props) => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Itineraries" component={Itineraries} options={{
-                title: "🏠",
+                title: <MaterialCommunityIcons name="home-export-outline"
+                    onPress={() => { props.navigation.navigate('Home') }} size={35} color="black" />,
                 headerRight: () => <SimpleLineIcons style={styles.IconHamburger} onPress={redirectHome} name="menu" size={24} color="black" />
 
             }} />
@@ -63,7 +66,8 @@ export const LogInPage = (props) => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="LogIn" component={LogIn} options={{
-                title: "🏠",
+                title: <MaterialCommunityIcons name="home-export-outline"
+                    onPress={() => { props.navigation.navigate('Home') }} size={35} color="black" />,
                 headerRight: () => <SimpleLineIcons style={styles.IconHamburger} onPress={redirectHome} name="menu" size={24} color="black" />
 
             }} />
@@ -78,7 +82,8 @@ export const SignUpPage = (props) => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="SignUp" component={SignUp} options={{
-                title: "🏠",
+                title: <MaterialCommunityIcons name="home-export-outline"
+                    onPress={() => { props.navigation.navigate('Home') }} size={35} color="black" />,
                 headerRight: () => <SimpleLineIcons style={styles.IconHamburger} onPress={redirectHome} name="menu" size={24} color="black" />
             }} />
         </Stack.Navigator>
