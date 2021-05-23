@@ -9,6 +9,13 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 user: action.payload
             }
+            break
+        case "LOG_OUT":
+            return {
+                ...state,
+                user: action.payload
+            }
+            break
         default:
             return state
     }

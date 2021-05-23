@@ -15,7 +15,8 @@ import userActions from '../redux/actions/userActions';
 const LogIn = (props) => {
 
   const [loginUser, setloginUser] = useState({
-    mail: '', password: ''
+    mail: '',
+    contraseña: ''
   })
 
   const readInput = (e, campo) => {
@@ -31,21 +32,20 @@ const LogIn = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>LOG IN</Text>
       <View style={styles.form}>
         <TextInput
           placeholder="E-mail"
-          placeholderTextColor='white'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
           onChangeText={(e) => readInput(e, 'mail')}
         />
         <TextInput
           placeholder="Password"
-          placeholderTextColor='white'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
-          onChangeText={(e) => readInput(e, 'password')}
+          onChangeText={(e) => readInput(e, 'contraseña')}
         />
         <TouchableOpacity
           style={styles.button}
@@ -72,21 +72,22 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   input: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     marginTop: 18,
     height: 60,
     width: "90%",
-    textAlign: 'center'
+    textAlign: 'center',
+    color: "black"
   },
   form: {
-    backgroundColor: "blue",
-    height: "40%",
+    backgroundColor: "#000000a0",
     width: "90%",
     alignItems: 'center'
   },
   button: {
     backgroundColor: "black",
     marginTop: 15,
+    marginBottom: 15,
     height: 50,
     width: 160,
     alignItems: "center",

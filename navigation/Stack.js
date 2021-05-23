@@ -39,16 +39,6 @@ export const MyCities = (props) => {
                 headerRight: () => <SimpleLineIcons style={styles.IconHamburger} onPress={redirectHome} name="menu" size={24} color="black" />
 
             }} />
-        </Stack.Navigator>
-    )
-}
-
-export const MyItineraries = (props) => {
-    const redirectHome = () => {
-        props.navigation.openDrawer()
-    }
-    return (
-        <Stack.Navigator>
             <Stack.Screen name="Itineraries" component={Itineraries} options={{
                 title: <MaterialCommunityIcons name="home-export-outline"
                     onPress={() => { props.navigation.navigate('Home') }} size={35} color="black" />,
@@ -92,6 +82,6 @@ export const SignUpPage = (props) => {
 
 const styles = StyleSheet.create({
     IconHamburger: {
-        marginRight: 12
+        marginRight: 15
     }
 });

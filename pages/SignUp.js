@@ -1,5 +1,5 @@
 import { setStatusBarHidden, StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import {
   SafeAreaView,
@@ -11,12 +11,21 @@ import {
   View
 } from 'react-native';
 import userActions from '../redux/actions/userActions';
+import SelectPicker from 'react-native-form-select-picker';
 
 const SignUp = (props) => {
 
   const [newUser, setNewUser] = useState({
-    firstName: '', lastName: '', image: '', user: '', mail: '', password: '', country: ''
+    nombre: '',
+    apellido: '',
+    usuario: '',
+    mail: '',
+    contraseña: '',
+    imagen: '',
+    pais: ''
   })
+
+  const [countries, setCountries] = useState([])
 
   const readInput = (e, campo) => {
     setNewUser({
@@ -25,62 +34,84 @@ const SignUp = (props) => {
     })
   }
 
+  useEffect(() => {
+    fetchCountries()
+  }, [])
+
+  const fetchCountries = async () => {
+    try {
+      var response = await fetch("https://restcountries.eu/rest/v2/all")
+      var data = await response.json()
+      setCountries(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const sendInfo = () => {
+    console.log(newUser)
     props.sendUser(newUser)
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>SIGN UP</Text>
       <View style={styles.form}>
         <TextInput
           placeholder="First Name"
-          placeholderTextColor='white'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
-          onChangeText={(e) => readInput(e, 'firstName')}
+          onChangeText={(e) => readInput(e, 'nombre')}
         />
         <TextInput
           placeholder="Last Name"
-          placeholderTextColor='white'
-          keyboardType='numeric'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
-          onChangeText={(e) => readInput(e, 'lastName')}
+          onChangeText={(e) => readInput(e, 'apellido')}
         />
         <TextInput
           placeholder="user"
-          placeholderTextColor='white'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
-          onChangeText={(e) => readInput(e, 'user')}
+          onChangeText={(e) => readInput(e, 'usuario')}
         />
         <TextInput
           placeholder="E-mail"
-          placeholderTextColor='white'
+          placeholderTextColor='black'
           color='white'
           style={styles.input}
           onChangeText={(e) => readInput(e, 'mail')}
         />
         <TextInput
           placeholder="Password"
-          placeholderTextColor='white'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
-          onChangeText={(e) => readInput(e, 'password')}
+          onChangeText={(e) => readInput(e, 'contraseña')}
         />
         <TextInput
           placeholder="URL"
-          placeholderTextColor='white'
-          color='white'
+          placeholderTextColor='black'
+          color='black'
           style={styles.input}
-          onChangeText={(e) => readInput(e, 'image')}
+          onChangeText={(e) => readInput(e, 'imagen')}
         />
+        <SelectPicker default="Choose a country"
+          onValueChange={(e) => readInput(e, "pais")}
+          placeholderStyle={{ color: 'black' }}
+          label="Country"
+          style={styles.input}
+          placeholder='Country'
+        >
+          {countries.map((country) => (<SelectPicker.Item label={country.name} value={country.name} key={country.name} />))}
+        </SelectPicker>
         <TouchableOpacity
           style={styles.button}
           onPress={sendInfo}
         >
-          <Text style={styles.submit}>SEND</Text>
+          <Text style={styles.submit}>Sign Up</Text>
         </TouchableOpacity>
       </View>
       <StatusBar style="auto" hidden={true} />
@@ -101,25 +132,27 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   input: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     marginTop: 18,
     height: 60,
     width: "90%",
-    textAlign: 'center'
+    textAlign: 'center',
+    color: "black"
   },
   form: {
-    backgroundColor: "blue",
-    height: "80%",
     width: "90%",
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: "#000000a0"
   },
   button: {
     backgroundColor: "black",
     marginTop: 15,
+    marginBottom: 15,
     height: 50,
     width: 160,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    borderRadius: 50
   },
   submit: {
     color: "white"
