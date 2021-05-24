@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
     height: 50,
     width: 160,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    borderRadius: 50
   },
   submit: {
     color: "white"

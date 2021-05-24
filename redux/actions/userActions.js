@@ -9,7 +9,7 @@ const userActions = {
                 if (!response.data.success) {
                     alert("nana pibe")
                 } else {
-                    await AsyncStorage.setItem('usuarioLogueado', JSON.stringify({ imagen: response.data.respuesta.foto, usuario: response.data.respuesta.usuario }))
+                    await AsyncStorage.setItem('usuarioLogueado', JSON.stringify({ imagen: response.data.respuesta.imagen, usuario: response.data.respuesta.usuario }))
                     await AsyncStorage.setItem('token', response.data.respuesta.token)
                     dispatch({
                         type: "LOAD_USER",
@@ -46,7 +46,7 @@ const userActions = {
             dispatch({ type: "LOG_OUT", payload: null })
         }
     },
-    forzarLoginLocalStore: (userLoggedInfo) => {
+    forceLoginLocalStore: (userLoggedInfo) => {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.get("https://mytinerary-m.herokuapp.com/api/user/loginLS", {
