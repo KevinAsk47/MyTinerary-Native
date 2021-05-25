@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, ImageBackground, Image, Button } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { connect } from 'react-redux';
 import likesActions from '../redux/actions/likesActions'
 import Comments from './Comments';
 
 const Itinerary = (props) => {
     const { itinerary, user, likear } = props
+
     const [viewMore, setViewMore] = useState(false)
     const [liked, setLiked] = useState([])
     const [flag, setFlag] = useState(false)
     const [loadingLiked, setLoadingLike] = useState(true)
-    /*    const [userToken, setUser] = useState({ token: AsyncStorage.getItem('token') }) */
+    const [userToken, setUser] = useState({ token: user.token })
     const [addComment, setAddComment] = useState(itinerary.comentarios)
 
     useEffect(() => {
@@ -24,7 +24,6 @@ const Itinerary = (props) => {
     }, [])
 
     const likes = async () => {
-        const userToken = await AsyncStorage.getItem('token')
         if (user) {
             setLoadingLike(false)
             var response = await likear(itinerary._id, userToken)
@@ -60,7 +59,7 @@ const Itinerary = (props) => {
                     </View>
                     <View style={styles.likeConteiner}>
                         <Text style={styles.like}>{liked.length}</Text>
-                        <AntDesign onPress={loadingLiked ? likes : null} name={!flag ? "like2" : "dilike2"} size={40} color="white" />
+                        <AntDesign onPress={loadingLiked ? likes : null} name={!flag ? "like2" : "dislike2"} size={40} color="white" />
                     </View>
                 </View>
                 {
@@ -121,7 +120,6 @@ const styles = StyleSheet.create({
     },
     commentsContainer: {
         width: "100%",
-        backgroundColor: "blue"
     },
     button: {
         marginTop: 10,

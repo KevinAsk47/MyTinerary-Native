@@ -8,10 +8,10 @@ const likesActions = {
                     'Authorization': 'Bearer ' + info.token
                 }
             })
-            if (respuesta.data.success) {
+            if (response.data.success) {
                 return response.data.respuesta
             } else {
-                console.log(respuesta.data.respuesta)
+                console.log(response.data.respuesta)
             }
         }
     }

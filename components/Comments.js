@@ -3,10 +3,23 @@ import { useEffect, useState } from "react"
 import { View, StyleSheet, TextInput, TouchableOpacity, Text } from "react-native";
 import { connect } from 'react-redux';
 import commentsActions from '../redux/actions/commentsActions';
+import Comment from './Comment';
 
 const Comments = (props) => {
-    const { user, fetchComments } = props
-    const [comment, setComment] = useState({ comentario: "", token: localStorage.getItem('token') })
+    const {
+        addComment,
+        setAddComment,
+        deleteComment,
+        updateComentario,
+        user,
+        fetchComments,
+        idItinerary
+    } = props
+    const [loadingComment, setLoadingComment] = useState(true)
+    const [comment, setComment] = useState({
+        comentario: "",
+        token: user.token
+    })
 
     const readInput = (e, campo) => {
         setComment({
@@ -15,23 +28,41 @@ const Comments = (props) => {
         })
     }
 
-    const sendComment = async (e) => {
-        /*         e.preventDefault()
-                if (/^\s+|\s+$/.test(comentario.comentario) || comentario.comentario === "") {
-                    alert("You cannot send an empty comment")
-                } else {
-                    setLoadingComentario(false)
-                    var respuesta = await props.fetchComentarios(comentario, props.idItinerario)
-                    setAgregarComentario(respuesta)
-                    setComentario({ comentario: "", token: localStorage.getItem('token') })
-                    setLoadingComentario(true)
-                } */
+    const sendComment = async () => {
+        if (/^\s+|\s+$/.test(comment.comentario) || comment.comentario === "") {
+            alert("mensajes vacios no pibe")
+        } else {
+            setLoadingComment(false)
+            var response = await fetchComments(comment, idItinerary)
+            setAddComment(response)
+            setComment({ comentario: "", token: user.token })
+            setLoadingComment(true)
+        }
+    }
+
+    const sendDeleteComment = async (id) => {
+        var response = await deleteComment(id, idItinerary)
+        setAddComment(response)
+    }
+
+    const sendUpdateComment = async (id, commentToModify) => {
+        var response = await updateComentario(commentToModify, idItinerary, id)
+        setAddComment(response)
     }
 
     return (
         <View>
             <View style={styles.CommentsConteiner}>
-
+                <View>
+                    {
+                        addComment.map((comment) => <Comment
+                            key={comment._id}
+                            comment={comment}
+                            sendDeleteComment={sendDeleteComment}
+                            sendUpdateComment={sendUpdateComment}
+                        />)
+                    }
+                </View>
             </View>
             {
                 user &&
@@ -45,7 +76,7 @@ const Comments = (props) => {
                     />
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={sendComment}
+                        onPress={loadingComment ? sendComment : null}
                     >
                         <Text style={styles.submit}>Send</Text>
                     </TouchableOpacity>
@@ -64,7 +95,8 @@ const styles = StyleSheet.create({
     },
     CommentsConteiner: {
         minHeight: 300,
-        width: "100%"
+        width: "100%",
+        alignItems: "center"
     },
     button: {
         backgroundColor: "black",
@@ -73,7 +105,8 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     submitConteiner: {
-        flexDirection: "row"
+        flexDirection: "row",
+        marginTop: 15
     },
     submit: {
         color: "white",
@@ -86,6 +119,7 @@ const mapStateToProps = state => {
         user: state.user.user
     }
 }
+
 
 const mapDispatchToProps = {
     fetchComments: commentsActions.fetchComments,

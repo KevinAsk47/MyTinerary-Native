@@ -29,9 +29,9 @@ const commentsActions = {
         }
     },
 
-    updateComentario: (info, idItinerario, id) => {
+    updateComentario: (info, idItinerary, id) => {
         return async (dispatch, getState) => {
-            var response = await axios.put('https://mytinerary-m.herokuapp.com/api/comentario/' + idItinerario, { info: info, idComentario: id })
+            var response = await axios.put('https://mytinerary-m.herokuapp.com/api/comentario/' + idItinerary, { info: info, idComentario: id })
             if (response.data.success) {
                 return response.data.respuesta.comentarios
             }
