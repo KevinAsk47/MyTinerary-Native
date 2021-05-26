@@ -28,7 +28,7 @@ const citiesActions = {
                 console.log(err)
             }
         }
-    },
+    }
 }
 
 export default citiesActions

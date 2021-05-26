@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from "react"
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, ToastAndroid } from "react-native";
 import { connect } from 'react-redux';
 import commentsActions from '../redux/actions/commentsActions';
 import Comment from './Comment';
@@ -18,8 +18,12 @@ const Comments = (props) => {
     const [loadingComment, setLoadingComment] = useState(true)
     const [comment, setComment] = useState({
         comentario: "",
-        token: user.token
+        token: user ? user.token : null
     })
+
+    const showToast = (message) => {
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+    }
 
     const readInput = (e, campo) => {
         setComment({
@@ -30,12 +34,12 @@ const Comments = (props) => {
 
     const sendComment = async () => {
         if (/^\s+|\s+$/.test(comment.comentario) || comment.comentario === "") {
-            alert("mensajes vacios no pibe")
+            showToast("I can't send empty messages")
         } else {
             setLoadingComment(false)
             var response = await fetchComments(comment, idItinerary)
             setAddComment(response)
-            setComment({ comentario: "", token: user.token })
+            setComment({ comentario: "" })
             setLoadingComment(true)
         }
     }

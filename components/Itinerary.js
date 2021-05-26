@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, ImageBackground, Image, Button } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground, Image, Button, ToastAndroid } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ const Itinerary = (props) => {
     const [liked, setLiked] = useState([])
     const [flag, setFlag] = useState(false)
     const [loadingLiked, setLoadingLike] = useState(true)
-    const [userToken, setUser] = useState({ token: user.token })
+    const [userToken, setUser] = useState({ token: user ? user.token : null })
     const [addComment, setAddComment] = useState(itinerary.comentarios)
 
     useEffect(() => {
@@ -23,6 +23,10 @@ const Itinerary = (props) => {
         }
     }, [])
 
+    const showToast = (message) => {
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+    }
+
     const likes = async () => {
         if (user) {
             setLoadingLike(false)
@@ -31,7 +35,7 @@ const Itinerary = (props) => {
             setFlag(!response.flag)
             setLoadingLike(true)
         } else {
-            alert("no puedes likear")
+            showToast("you must log in to like")
         }
     }
 
@@ -45,6 +49,11 @@ const Itinerary = (props) => {
                 <ImageBackground source={{ uri: itinerary.banner }} style={styles.banner} >
                     <Text style={styles.title} >{itinerary.titulo}</Text>
                 </ImageBackground>
+                <View style={styles.hastash}>
+                    {
+                        itinerary.hashtag.map((hastash, index) => <Text key={index} style={styles.textHastash}>{hastash}</Text>)
+                    }
+                </View>
                 <View style={styles.moneyConteiner}>
                     {
                         Array(itinerary.precio).fill(itinerary.precio).map((billete, index) => {
@@ -87,7 +96,7 @@ const Itinerary = (props) => {
 
 const styles = StyleSheet.create({
     itineraryConteiner: {
-        backgroundColor: "red",
+        backgroundColor: "pink",
         width: "90%",
         alignItems: "center",
         marginBottom: 10
@@ -174,6 +183,19 @@ const styles = StyleSheet.create({
     like: {
         fontSize: 20,
         marginBottom: 5
+    },
+    hastash: {
+        height: 50,
+        width: "100%",
+        backgroundColor: "white",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    textHastash: {
+        marginLeft: 5,
+        marginRight: 5,
+        fontSize: 20
     }
 });
 

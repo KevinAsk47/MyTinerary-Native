@@ -7,7 +7,7 @@ const userActions = {
             try {
                 var response = await axios.post("https://mytinerary-m.herokuapp.com/api/userSignUp", newUser)
                 if (!response.data.success) {
-                    alert("nana pibe")
+                    return response.data.errores || response.data.error
                 } else {
                     await AsyncStorage.setItem('usuarioLogueado', JSON.stringify({ imagen: response.data.respuesta.imagen, usuario: response.data.respuesta.usuario }))
                     await AsyncStorage.setItem('token', response.data.respuesta.token)
@@ -26,7 +26,7 @@ const userActions = {
             try {
                 var response = await axios.post("https://mytinerary-m.herokuapp.com/api/userLogIn", loginUser)
                 if (!response.data.success) {
-                    alert("nana pibe")
+                    return response.data.error
                 } else {
                     await AsyncStorage.setItem('usuarioLogueado', JSON.stringify({ imagen: response.data.respuesta.imagen, usuario: response.data.respuesta.usuario }))
                     await AsyncStorage.setItem('token', response.data.respuesta.token)

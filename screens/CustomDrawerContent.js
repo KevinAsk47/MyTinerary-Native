@@ -28,7 +28,7 @@ const CustomDrawerContent = (props) => {
             {
                 props.user ?
                     <View style={styles.logOut}>
-                        <Entypo name="log-out" size={24} color="black" />
+                        <Entypo name="log-out" size={24} color="white" />
                         <Text style={styles.logOutText} onPress={() => { props.logOut() }}>Log Out</Text>
                     </View>
                     :
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     navigation: {
         width: "90%",
         height: 50,
-        backgroundColor: "green",
+        backgroundColor: "black",
         marginTop: 10,
         marginBottom: 10,
         justifyContent: "center",
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     logOut: {
         width: "90%",
         height: 50,
-        backgroundColor: "green",
+        backgroundColor: "red",
         marginTop: 10,
         marginBottom: 10,
         justifyContent: "center",
@@ -79,10 +79,12 @@ const styles = StyleSheet.create({
     },
     logOutText: {
         fontSize: 20,
-        marginLeft: 10
+        marginLeft: 10,
+        color: "white"
     },
     text: {
-        fontSize: 20
+        fontSize: 20,
+        color: "white"
     },
     photo: {
         height: 80,

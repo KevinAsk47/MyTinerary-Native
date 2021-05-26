@@ -1,6 +1,6 @@
 import { setStatusBarHidden, StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react'
-import { Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import citiesActions from '../redux/actions/citiesActions';
 import { connect } from 'react-redux'
 import Itinerary from '../components/Itinerary';
@@ -12,6 +12,12 @@ const Itineraries = (props) => {
   useEffect(() => {
     fetchCity()
     fetchItineraries()
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      setItineraries([])
+    }
   }, [])
 
   const fetchCity = async () => {
@@ -37,7 +43,9 @@ const Itineraries = (props) => {
           <Text style={styles.titleTwo}>{city.titulo}</Text>
         </ImageBackground>
         {
-          itineraries.map(itinerary => <Itinerary key={itinerary._id} itinerary={itinerary} />)
+          itineraries.length === 0 ?
+            <View style={styles.noItineraries}><Text style={styles.text}>There are no loaded itineraries</Text></View>
+            : itineraries.map(itinerary => <Itinerary key={itinerary._id} itinerary={itinerary} />)
         }
       </ScrollView>
       <StatusBar style="auto" hidden={true} />
@@ -70,6 +78,16 @@ const styles = StyleSheet.create({
   titleTwo: {
     fontSize: 20,
     color: "white"
+  },
+  noItineraries: {
+    width: "100%",
+    height: 450,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 40,
+    textAlign: "center"
   }
 });
 

@@ -18,10 +18,16 @@ const Comment = (props) => {
         }
     }, [legitimateUser])
 
-    const readInput = (e, campo) => {
+    const readInput = (e) => {
         setEditComment({
-            [campo]: e
+            ...editComment,
+            comentario: e
         })
+    }
+
+    const sendEdit = () => {
+        sendUpdateComment(comment._id, editComment)
+        setModify(false)
     }
 
     return (
@@ -32,22 +38,32 @@ const Comment = (props) => {
                     modify &&
                     <>
                         <TextInput
-                            placeholder="E-mail"
-                            placeholderTextColor='black'
+                            placeholderTextColor="black"
                             color='white'
                             style={styles.input}
-                            onChangeText={(e) => readInput(e, 'comentario')}
+                            onChangeText={(e) => readInput(e)}
                         />
-                        <Entypo style={styles.checkIcon} name="check" size={24} color="black" />
                     </>
 
                 }
                 <Text style={styles.message}>{comment.comentario}</Text>
                 <View style={styles.deleteAndEdit}>
-                    <AntDesign onPress={() => setModify(!modify)} style={styles.editIcon} name="edit" size={30} color="black" />
-                    <AntDesign onPress={() => {
-                        setModalVisible(true);
-                    }} style={styles.deleteIcon} name="delete" size={30} color="black" />
+                    {
+                        (user && legitimateUser) &&
+                        <>
+                            {
+                                modify ?
+                                    <>
+                                        <Entypo onPress={sendEdit} style={styles.checkIcon} name="check" size={30} color="black" />
+                                        <AntDesign style={styles.closeIcon} onPress={() => setModify(false)} name="close" size={30} color="black" />
+                                    </> :
+                                    <AntDesign onPress={() => setModify(true)} style={styles.editIcon} name="edit" size={30} color="black" />
+                            }
+                            <AntDesign onPress={() => {
+                                setModalVisible(true);
+                            }} style={styles.deleteIcon} name="delete" size={30} color="black" />
+                        </>
+                    }
                 </View>
             </View>
             <Modal
@@ -155,18 +171,25 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     input: {
-        backgroundColor: "black",
         position: "absolute",
         fontSize: 20,
         marginLeft: 15,
         width: 200,
-        color: "white",
-        zIndex: 2
+        color: "black",
+        zIndex: 2,
+        borderColor: "black",
+        borderWidth: 1,
+        marginLeft: 5,
+        backgroundColor: "white",
+        paddingLeft: 5
     },
     deleteAndEdit: {
         flexDirection: "row",
     },
     checkIcon: {
+        marginRight: 10
+    },
+    closeIcon: {
         marginRight: 10
     }
 });

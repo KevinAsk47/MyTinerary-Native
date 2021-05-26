@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -26,8 +27,26 @@ const LogIn = (props) => {
     })
   }
 
-  const sendInfo = () => {
-    props.sendUserLogged(loginUser)
+  const showToast = (message) => {
+    ToastAndroid.show(message, ToastAndroid.SHORT);
+  }
+
+  const sendInfo = async () => {
+    if (loginUser.contraseña === "" || loginUser.mail === "") {
+      showToast("Complete all fields please")
+    } else {
+      var response = await props.sendUserLogged(loginUser)
+      if (response) {
+        showToast(response)
+      } else {
+        setloginUser({
+          mail: '',
+          contraseña: ''
+        })
+        showToast("Successful login")
+        props.navigation.navigate("Home")
+      }
+    }
   }
 
   return (
@@ -42,6 +61,7 @@ const LogIn = (props) => {
         />
         <TextInput
           placeholder="Password"
+          secureTextEntry={true}
           placeholderTextColor='black'
           color='black'
           style={styles.input}
@@ -54,6 +74,8 @@ const LogIn = (props) => {
           <Text style={styles.submit}>LOG IN</Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.textSignUp}>You do not have an account? Click <Text
+        onPress={() => { props.navigation.navigate('SignUp') }} style={styles.here}>Here</Text> </Text>
       <StatusBar style="auto" hidden={true} />
     </SafeAreaView>
   )
@@ -96,6 +118,13 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: "white"
+  },
+  textSignUp: {
+    marginTop: 20,
+    fontSize: 15
+  },
+  here: {
+    color: "blue"
   }
 });
 
